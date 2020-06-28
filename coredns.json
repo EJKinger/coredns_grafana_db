@@ -53,7 +53,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1593370448622,
+  "iteration": 1593370448631,
   "links": [
     {
       "$$hashKey": "object:94",
@@ -138,7 +138,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "coredns_build_info{instance=\"$instance\"}",
+          "expr": "coredns_build_info{instance=~\"$instance\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -1629,5 +1629,5 @@
   "timezone": "",
   "title": "CoreDNS",
   "uid": "wY4blRMGz",
-  "version": 8
+  "version": 9
 }
