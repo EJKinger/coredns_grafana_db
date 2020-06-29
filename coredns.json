@@ -53,7 +53,7 @@
   "gnetId": 12539,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1593453668368,
+  "iteration": 1593453668371,
   "links": [
     {
       "$$hashKey": "object:94",
@@ -232,7 +232,7 @@
         }
       ],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -243,15 +243,6 @@
           "legendFormat": "{{proto}}",
           "refId": "A",
           "step": 60
-        },
-        {
-          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "total",
-          "refId": "B",
-          "step": 60
         }
       ],
       "thresholds": [],
@@ -261,8 +252,8 @@
       "title": "Requests (total)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
+        "sort": 2,
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -351,11 +342,11 @@
         }
       ],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) by (type) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (type)",
+          "expr": "sum(rate(coredns_dns_request_type_count_total{instance=~\"$instance\"}[5m])) by (type) or \nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (type)",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{type}}",
@@ -370,8 +361,8 @@
       "title": "Requests (by qtype)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
+        "sort": 2,
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -456,7 +447,7 @@
         }
       ],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -465,14 +456,6 @@
           "intervalFactor": 2,
           "legendFormat": "{{zone}}",
           "refId": "A",
-          "step": 60
-        },
-        {
-          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "total",
-          "refId": "B",
           "step": 60
         }
       ],
@@ -483,8 +466,8 @@
       "title": "Requests (by zone)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
+        "sort": 2,
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -581,7 +564,7 @@
           "step": 40
         },
         {
-          "expr": "sum(rate(coredns_dns_request_do_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_do_requests_total{instance=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "total",
@@ -596,7 +579,7 @@
       "title": "Requests (DO bit)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "cumulative"
       },
       "type": "graph",
@@ -934,11 +917,11 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_responses_total{instance=~\"$instance\"}[5m])) by (rcode)",
+          "expr": "sum(rate(coredns_dns_response_rcode_count_total{instance=~\"$instance\"}[5m])) by (rcode) or\nsum(rate(coredns_dns_responses_total{instance=~\"$instance\"}[5m])) by (rcode)",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{rcode}}",
@@ -953,8 +936,8 @@
       "title": "Responses (by rcode)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
+        "sort": 2,
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -966,6 +949,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:648",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -973,6 +957,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:649",
           "format": "short",
           "logBase": 1,
           "max": null,
@@ -1009,7 +994,7 @@
         "y": 19
       },
       "hiddenSeries": false,
-      "id": 16,
+      "id": 32,
       "legend": {
         "avg": false,
         "current": false,
@@ -1030,50 +1015,32 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "udp:50%",
-          "yaxis": 1
-        },
-        {
-          "alias": "tcp:50%",
-          "yaxis": 1
-        },
-        {
-          "alias": "tcp:90%",
-          "yaxis": 1
-        },
-        {
-          "alias": "tcp:99%",
-          "yaxis": 1
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket{instance=~\"$instance\",proto=\"tcp\"}[5m])) by (le,proto)) ",
+          "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_request_duration_seconds_bucket{instance=~\"$instance\"}[5m])) by (le, job))",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{proto}}:99%",
+          "legendFormat": "99%",
           "refId": "A",
           "step": 40
         },
         {
-          "expr": "histogram_quantile(0.90, sum(rate(coredns_dns_response_size_bytes_bucket{instance=~\"$instance\",proto=\"tcp\"}[5m])) by (le,proto)) ",
+          "expr": "histogram_quantile(0.90, sum(rate(coredns_dns_request_duration_seconds_bucket{instance=~\"$instance\"}[5m])) by (le))",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{proto}}:90%",
+          "legendFormat": "90%",
           "refId": "B",
           "step": 40
         },
         {
-          "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket{instance=~\"$instance\",proto=\"tcp\"}[5m])) by (le, proto)) ",
+          "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_request_duration_seconds_bucket{instance=~\"$instance\"}[5m])) by (le))",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{proto}}:50%",
-          "metric": "",
+          "legendFormat": "50%",
           "refId": "C",
           "step": 40
         }
@@ -1082,7 +1049,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Responses (size, tcp)",
+      "title": "Responses (duration)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1098,17 +1065,19 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
+          "$$hashKey": "object:1080",
+          "format": "s",
           "logBase": 1,
           "max": null,
           "min": 0,
           "show": true
         },
         {
+          "$$hashKey": "object:1081",
           "format": "short",
           "logBase": 1,
           "max": null,
-          "min": 0,
+          "min": null,
           "show": true
         }
       ],
@@ -1186,13 +1155,15 @@
       "targets": [
         {
           "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket{instance=~\"$instance\",proto=\"udp\"}[5m])) by (le,proto)) ",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{proto}}:99%",
           "refId": "A",
           "step": 40
         },
         {
-          "expr": "histogram_quantile(0.90, sum(rate(coredns_dns_response_size_bytes_bucket{instance=\"$instance\",proto=\"udp\"}[5m])) by (le,proto)) ",
+          "expr": "histogram_quantile(0.90, sum(rate(coredns_dns_response_size_bytes_bucket{instance=~\"$instance\",proto=\"udp\"}[5m])) by (le,proto)) ",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{proto}}:90%",
           "refId": "B",
@@ -1200,6 +1171,7 @@
         },
         {
           "expr": "histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket{instance=~\"$instance\",proto=\"udp\"}[5m])) by (le,proto)) ",
+          "hide": false,
           "intervalFactor": 2,
           "legendFormat": "{{proto}}:50%",
           "metric": "",
@@ -1227,6 +1199,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1129",
           "format": "bytes",
           "logBase": 1,
           "max": null,
@@ -1234,6 +1207,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:1130",
           "format": "short",
           "logBase": 1,
           "max": null,
@@ -1425,7 +1399,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -1444,7 +1418,7 @@
       "title": "Cache (size)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "cumulative"
       },
       "type": "graph",
@@ -1530,11 +1504,12 @@
         }
       ],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
           "expr": "sum(rate(coredns_cache_hits_total{instance=~\"$instance\"}[5m])) by (type)",
+          "hide": false,
           "intervalFactor": 2,
           "legendFormat": "hits:{{type}}",
           "refId": "A",
@@ -1542,6 +1517,7 @@
         },
         {
           "expr": "sum(rate(coredns_cache_misses_total{instance=~\"$instance\"}[5m])) by (type)",
+          "hide": false,
           "intervalFactor": 2,
           "legendFormat": "misses",
           "refId": "B",
@@ -1555,8 +1531,8 @@
       "title": "Cache (hitrate)",
       "tooltip": {
         "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
+        "sort": 2,
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -1568,6 +1544,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:697",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -1575,6 +1552,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:698",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -1640,5 +1618,5 @@
   "timezone": "",
   "title": "CoreDNS",
   "uid": "wY4blRMGz",
-  "version": 2
+  "version": 3
 }
