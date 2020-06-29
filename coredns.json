@@ -50,10 +50,10 @@
   },
   "description": "A dashboard for the CoreDNS DNS server.",
   "editable": true,
-  "gnetId": null,
+  "gnetId": 12539,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1593370448631,
+  "iteration": 1593453668368,
   "links": [
     {
       "$$hashKey": "object:94",
@@ -236,7 +236,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (proto)",
+          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) by (proto) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (proto)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -245,7 +245,7 @@
           "step": 60
         },
         {
-          "expr": "sum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -355,7 +355,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (type)",
+          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) by (type) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (type)",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{type}}",
@@ -383,6 +383,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:104",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -390,6 +391,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:105",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -458,7 +460,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (zone)",
+          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) by (zone) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m])) by (zone)",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{zone}}",
@@ -466,7 +468,7 @@
           "step": 60
         },
         {
-          "expr": "sum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(coredns_dns_request_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_requests_total{instance=~\"$instance\"}[5m]))",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "total",
@@ -494,6 +496,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:131",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -501,6 +504,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:132",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -569,7 +573,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(coredns_dns_do_requests_total{instance=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(coredns_dns_request_do_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_do_requests_total{instance=~\"$instance\"}[5m]))",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "DO",
@@ -577,7 +581,7 @@
           "step": 40
         },
         {
-          "expr": "sum(rate(coredns_dns_do_requests_total{instance=~\"$instance\"}[5m]))",
+          "expr": "sum(rate(coredns_dns_request_do_count_total{instance=~\"$instance\"}[5m])) or\nsum(rate(coredns_dns_do_requests_total{instance=~\"$instance\"}[5m]))",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "total",
@@ -605,6 +609,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:158",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -612,6 +617,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:159",
           "format": "pps",
           "logBase": 1,
           "max": null,
@@ -689,6 +695,7 @@
       "targets": [
         {
           "expr": "histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket{instance=~\"$instance\",proto=\"udp\"}[5m])) by (le,proto))",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{proto}}:99 ",
           "refId": "A",
@@ -729,6 +736,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:218",
           "format": "bytes",
           "logBase": 1,
           "max": null,
@@ -736,6 +744,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:219",
           "format": "short",
           "logBase": 1,
           "max": null,
@@ -1420,7 +1429,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(coredns_cache_entries{instance=~\"$instance\"}) by (type)",
+          "expr": "sum(coredns_cache_size{instance=~\"$instance\"}) by (type) or\nsum(coredns_cache_entries{instance=~\"$instance\"}) by (type)",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{type}}",
@@ -1448,6 +1457,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:245",
           "format": "decbytes",
           "logBase": 1,
           "max": null,
@@ -1455,6 +1465,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:246",
           "format": "short",
           "logBase": 1,
           "max": null,
@@ -1610,7 +1621,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {
@@ -1629,5 +1640,5 @@
   "timezone": "",
   "title": "CoreDNS",
   "uid": "wY4blRMGz",
-  "version": 9
+  "version": 2
 }
